@@ -29,6 +29,7 @@ import {
 } from "@/components/base/alert-dialog";
 import { useState } from "react";
 import { TaskUpdateModal } from "./task-update-modal";
+import { toast } from "sonner";
 
 type TaskItemProps = {
   task: TaskResDto;
@@ -43,6 +44,8 @@ export const TaskItem = ({ task }: TaskItemProps) => {
     mutationFn: TasksApi.delete,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      toast.success("Task deleted successfully");
+      setIsDeleteConfirmationOpen(false);
     },
   });
 
@@ -91,9 +94,13 @@ export const TaskItem = ({ task }: TaskItemProps) => {
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
-              onClick={() => deleteTaskMutation.mutate(task.id)}
+              onClick={(e) => {
+                e.preventDefault();
+                deleteTaskMutation.mutate(task.id);
+              }}
+              disabled={deleteTaskMutation.isPending}
             >
-              Confirm
+              {deleteTaskMutation.isPending ? "Deleting..." : "Confirm"}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

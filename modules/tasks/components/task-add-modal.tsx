@@ -13,6 +13,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 
 import { TaskUpsertForm, TFormSchema } from "./task-upsert-form";
+import { toast } from "sonner";
 
 export const TaskAddModal = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +22,9 @@ export const TaskAddModal = () => {
     mutationFn: TasksApi.create,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      toast.success("Task created successfully");
       setIsOpen(false);
+      
     },
   });
 

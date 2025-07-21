@@ -13,6 +13,7 @@ import { useMutation } from "@tanstack/react-query";
 import { TasksApi } from "@/api/tasks/tasks.api";
 import { queryClient } from "@/components/misc/app-query-provider";
 import { TaskResDto } from "@/api/tasks/tasks.dto";
+import { toast } from "sonner";
 type TaskUpdateModalProps = {
   task: TaskResDto;
   open: boolean;
@@ -29,6 +30,7 @@ export const TaskUpdateModal = ({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
       onOpenChange(false);
+      toast.success("Task updated successfully");
     },
   });
 

@@ -13,8 +13,12 @@ import {
 } from "@/components/base/card";
 import { Skeleton } from "@/components/base/skeleton";
 import { TaskItem } from "./components/task-item";
+import { AUBack } from "@/components/aury/au-back";
+import { useRouter } from "next/navigation";
 
 export const TaskList = () => {
+  const router = useRouter();
+
   const { data, isLoading, isError } = useQuery({
     queryKey: ["tasks"],
     queryFn: TasksApi.get,
@@ -22,6 +26,8 @@ export const TaskList = () => {
 
   return (
     <div className="mx-6 my-10">
+      <AUBack onClick={router.back} className="mb-4" />
+
       <Card className="shadow-none">
         <CardHeader>
           <CardTitle>Tasks</CardTitle>
