@@ -8,6 +8,7 @@ import { DropdownMenu } from "@/components/base/dropdown-menu";
 import {
   Card,
   CardAction,
+  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/base/card";
@@ -16,18 +17,27 @@ import { EllipsisVertical } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { TasksApi } from "@/api/tasks/tasks.api";
 import { queryClient } from "@/components/misc/app-query-provider";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/base/alert-dialog";
+import { useState } from "react";
+import { TaskUpdateModal } from "./task-update-modal";
 
 type TaskItemProps = {
   task: TaskResDto;
 };
 
 export const TaskItem = ({ task }: TaskItemProps) => {
-  const editTaskMutation = useMutation({
-    mutationFn: TasksApi.update,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tasks"] });
-    },
-  });
+  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
+    useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const deleteTaskMutation = useMutation({
     mutationFn: TasksApi.delete,
@@ -37,29 +47,63 @@ export const TaskItem = ({ task }: TaskItemProps) => {
   });
 
   return (
-    <Card key={task.id} className="shadow-none">
-      <CardHeader>
-        <CardTitle>{task.name}</CardTitle>
+    <>
+      <Card key={task.id} className="shadow-none">
+        <CardHeader>
+          <CardTitle>{task.name}</CardTitle>
+          <CardDescription>{task.description}</CardDescription>
 
-        <CardAction>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm">
-                <EllipsisVertical className="w-4 h-4" />
-              </Button>
-            </DropdownMenuTrigger>
+          <CardAction>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm">
+                  <EllipsisVertical className="w-4 h-4" />
+                </Button>
+              </DropdownMenuTrigger>
 
-            <DropdownMenuContent>
-              <DropdownMenuItem>Edit</DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => deleteTaskMutation.mutate(task.id)}
-              >
-                Delete
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </CardAction>
-      </CardHeader>
-    </Card>
+              <DropdownMenuContent>
+                <DropdownMenuItem onClick={() => setIsEditModalOpen(true)}>
+                  Edit
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => setIsDeleteConfirmationOpen(true)}
+                >
+                  Delete
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </CardAction>
+        </CardHeader>
+      </Card>
+
+      <AlertDialog
+        open={isDeleteConfirmationOpen}
+        onOpenChange={setIsDeleteConfirmationOpen}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete the
+              task and related scheduled tasks.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => deleteTaskMutation.mutate(task.id)}
+            >
+              Confirm
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <TaskUpdateModal
+        task={task}
+        open={isEditModalOpen}
+        onOpenChange={setIsEditModalOpen}
+      />
+    </>
   );
 };

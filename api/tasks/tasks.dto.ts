@@ -1,6 +1,7 @@
 export type TaskResDto = {
   id: string;
   name: string;
+  description?: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -11,6 +12,7 @@ export type TasksResDto = {
 
 export type TaskUpsertReqDto = {
   name: string;
+  description?: string;
 };
 
 export type TaskUpdateReqDto = {

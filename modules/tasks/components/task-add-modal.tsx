@@ -2,22 +2,19 @@ import { TasksApi } from "@/api/tasks/tasks.api";
 import { Button } from "@/components/base/button";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/base/dialog";
-import { Input } from "@/components/base/input";
-import { Label } from "@/components/base/label";
 import { queryClient } from "@/components/misc/app-query-provider";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 
+import { TaskUpsertForm, TFormSchema } from "./task-upsert-form";
+
 export const TaskAddModal = () => {
-  const [name, setName] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
   const createTaskMutation = useMutation({
@@ -25,17 +22,16 @@ export const TaskAddModal = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
       setIsOpen(false);
-      setName("");
     },
   });
 
-  const handleSubmit = () => {
-    createTaskMutation.mutate({ name });
+  const handleSubmit = (data: TFormSchema) => {
+    createTaskMutation.mutate(data);
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <form onSubmit={handleSubmit}>
+      <form>
         <DialogTrigger asChild>
           <Button variant="outline">Add Task</Button>
         </DialogTrigger>
@@ -46,27 +42,14 @@ export const TaskAddModal = () => {
             <DialogDescription>Add a new task to your list</DialogDescription>
           </DialogHeader>
 
-          <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
-            <Input
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
-            </DialogClose>
-            <Button
-              type="submit"
-              onClick={handleSubmit}
-              disabled={createTaskMutation.isPending}
-            >
-              Create
-            </Button>
-          </DialogFooter>
+          <TaskUpsertForm
+            onSubmit={handleSubmit}
+            defaultValues={{
+              name: "",
+              description: "",
+            }}
+            isSubmitting={createTaskMutation.isPending}
+          />
         </DialogContent>
       </form>
     </Dialog>
