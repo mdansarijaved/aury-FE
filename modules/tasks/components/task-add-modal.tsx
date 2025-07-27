@@ -24,7 +24,6 @@ export const TaskAddModal = () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
       toast.success("Task created successfully");
       setIsOpen(false);
-      
     },
   });
 
