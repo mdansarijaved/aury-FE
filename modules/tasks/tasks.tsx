@@ -15,6 +15,7 @@ import { Skeleton } from "@/components/base/skeleton";
 import { TaskItem } from "./components/task-item";
 import { AUBack } from "@/components/aury/au-back";
 import { useRouter } from "next/navigation";
+import { Text } from "@/components/base/text";
 
 export const TaskList = () => {
   const router = useRouter();
@@ -25,19 +26,22 @@ export const TaskList = () => {
   });
 
   return (
-    <div className="mx-6 my-10">
+    <div className="mx-6">
       <AUBack onClick={router.back} className="mb-4" />
 
-      <Card className="shadow-none">
-        <CardHeader>
-          <CardTitle>Tasks</CardTitle>
-          <CardDescription>List of tasks for Aury</CardDescription>
-          <CardAction>
-            <TaskAddModal />
-          </CardAction>
-        </CardHeader>
+      <div>
+        <div className="flex items-center justify-between">
+          <div>
+            <Text as="h1">Tasks</Text>
+            <Text className="text-aury-500">List of tasks for Aury</Text>
+          </div>
 
-        <CardContent className="space-y-2">
+          <div>
+            <TaskAddModal />
+          </div>
+        </div>
+
+        <div className="space-y-2 mt-4">
           {isLoading && (
             <>
               <Skeleton className="h-20" />
@@ -49,8 +53,8 @@ export const TaskList = () => {
           {data?.tasks.map((task) => (
             <TaskItem key={task.id} task={task} />
           ))}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 };

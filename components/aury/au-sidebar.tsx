@@ -1,30 +1,21 @@
-import {
-  Calendar,
-  Cat,
-  FileChartColumn,
-  Home,
-  Plus,
-  Settings,
-} from "lucide-react";
+import { BrushCleaningIcon, Calendar, Cat, Home, Settings } from "lucide-react";
 
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/base/sidebar";
-import { Button } from "../base/button";
+import { ROUTES } from "@/routes/routes";
 
 const items = [
   {
     title: "Dashboard",
-    url: "#",
+    url: ROUTES.root,
     icon: Home,
   },
   {
@@ -38,9 +29,9 @@ const items = [
     icon: Calendar,
   },
   {
-    title: "Reports",
-    url: "#",
-    icon: FileChartColumn,
+    title: "Tasks",
+    url: ROUTES.tasks,
+    icon: BrushCleaningIcon,
   },
   {
     title: "Settings",

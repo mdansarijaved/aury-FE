@@ -54,7 +54,9 @@ export const TaskItem = ({ task }: TaskItemProps) => {
       <Card key={task.id} className="shadow-none">
         <CardHeader>
           <CardTitle>{task.name}</CardTitle>
-          <CardDescription>{task.description}</CardDescription>
+          <CardDescription className="text-aury-500">
+            {task.description}
+          </CardDescription>
 
           <CardAction>
             <DropdownMenu>
