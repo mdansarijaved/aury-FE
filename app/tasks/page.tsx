@@ -1,3 +1,7 @@
 import { TaskList } from "@/modules/tasks/tasks";
 
-export default TaskList;
+const TasksPage = () => {
+  return <TaskList />;
+};
+
+export default TasksPage;
