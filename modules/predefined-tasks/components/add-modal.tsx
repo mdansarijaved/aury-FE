@@ -1,4 +1,4 @@
-import { TasksApi } from "@/api/tasks/tasks.api";
+import { PredefinedTasksApi } from "@/api/predefined-tasks/predefined-tasks.api";
 import { Button } from "@/components/base/button";
 import {
   Dialog,
@@ -12,16 +12,16 @@ import { queryClient } from "@/components/misc/app-query-provider";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 
-import { TaskUpsertForm, TFormSchema } from "./task-upsert-form";
+import { UpsertForm, TFormSchema } from "./upsert-form";
 import { toast } from "sonner";
 
-export const TaskAddModal = () => {
+export const AddModal = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const createTaskMutation = useMutation({
-    mutationFn: TasksApi.create,
+    mutationFn: PredefinedTasksApi.create,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      queryClient.invalidateQueries({ queryKey: ["predefined-tasks"] });
       toast.success("Task created successfully");
       setIsOpen(false);
     },
@@ -44,7 +44,7 @@ export const TaskAddModal = () => {
             <DialogDescription>Add a new task to your list</DialogDescription>
           </DialogHeader>
 
-          <TaskUpsertForm
+          <UpsertForm
             onSubmit={handleSubmit}
             defaultValues={{
               name: "",

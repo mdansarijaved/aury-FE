@@ -1,28 +1,20 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { TasksApi } from "@/api/tasks/tasks.api";
-import { TaskAddModal } from "./components/task-add-modal";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/base/card";
+import { PredefinedTasksApi } from "@/api/predefined-tasks/predefined-tasks.api";
+import { AddModal } from "./components/add-modal";
 import { Skeleton } from "@/components/base/skeleton";
-import { TaskItem } from "./components/task-item";
+import { Item } from "./components/item";
 import { AUBack } from "@/components/aury/au-back";
 import { useRouter } from "next/navigation";
 import { Text } from "@/components/base/text";
 
-export const TaskList = () => {
+export const PredefinedTasks = () => {
   const router = useRouter();
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["tasks"],
-    queryFn: TasksApi.get,
+    queryKey: ["predefined-tasks"],
+    queryFn: PredefinedTasksApi.get,
   });
 
   return (
@@ -37,7 +29,7 @@ export const TaskList = () => {
           </div>
 
           <div>
-            <TaskAddModal />
+            <AddModal />
           </div>
         </div>
 
@@ -50,8 +42,8 @@ export const TaskList = () => {
             </>
           )}
 
-          {data?.tasks.map((task) => (
-            <TaskItem key={task.id} task={task} />
+          {data?.predefinedTasks.map((task) => (
+            <Item key={task.id} task={task} />
           ))}
         </div>
       </div>

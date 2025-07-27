@@ -14,17 +14,17 @@ const formSchema = z.object({
 
 export type TFormSchema = z.infer<typeof formSchema>;
 
-type TaskUpsertFormProps = {
+type UpsertFormProps = {
   onSubmit: (data: TFormSchema) => void;
   defaultValues?: TFormSchema;
   isSubmitting: boolean;
 };
 
-export const TaskUpsertForm = ({
+export const UpsertForm = ({
   onSubmit,
   defaultValues,
   isSubmitting,
-}: TaskUpsertFormProps) => {
+}: UpsertFormProps) => {
   const form = useForm<TFormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues,

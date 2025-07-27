@@ -6,29 +6,29 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/base/dialog";
-import { TaskUpsertForm, TFormSchema } from "./task-upsert-form";
-import { Button } from "@/components/base/button";
-import { useState } from "react";
+import { UpsertForm, TFormSchema } from "./upsert-form";
+
 import { useMutation } from "@tanstack/react-query";
-import { TasksApi } from "@/api/tasks/tasks.api";
+import { PredefinedTasksApi } from "@/api/predefined-tasks/predefined-tasks.api";
 import { queryClient } from "@/components/misc/app-query-provider";
-import { TaskResDto } from "@/api/tasks/tasks.dto";
+import { PredefinedTaskResDto } from "@/api/predefined-tasks/predefined-tasks.dto";
 import { toast } from "sonner";
-type TaskUpdateModalProps = {
-  task: TaskResDto;
+
+type UpdateModalProps = {
+  task: PredefinedTaskResDto;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 };
 
-export const TaskUpdateModal = ({
+export const UpdateModal = ({
   task,
   open,
   onOpenChange,
-}: TaskUpdateModalProps) => {
+}: UpdateModalProps) => {
   const updateTaskMutation = useMutation({
-    mutationFn: TasksApi.update,
+    mutationFn: PredefinedTasksApi.update,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      queryClient.invalidateQueries({ queryKey: ["predefined-tasks"] });
       onOpenChange(false);
       toast.success("Task updated successfully");
     },
@@ -47,7 +47,7 @@ export const TaskUpdateModal = ({
             <DialogDescription>Edit a task</DialogDescription>
           </DialogHeader>
 
-          <TaskUpsertForm
+          <UpsertForm
             onSubmit={handleSubmit}
             defaultValues={{
               name: task.name,

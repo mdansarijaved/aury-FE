@@ -1,11 +1,10 @@
-import { globalFetch } from "../global.fetch";
 import {
   TaskResDto,
   TasksResDto,
+  TaskCreateReqDto,
   TaskUpdateReqDto,
-  TaskUpsertReqDto,
 } from "./tasks.dto";
-
+import { globalFetch } from "../global.fetch";
 export class TasksApi {
   public static get = async (): Promise<TasksResDto> => {
     const res = await globalFetch("/tasks");
@@ -17,7 +16,7 @@ export class TasksApi {
     return res;
   };
 
-  public static create = async (req: TaskUpsertReqDto): Promise<TaskResDto> => {
+  public static create = async (req: TaskCreateReqDto): Promise<TaskResDto> => {
     const res = await globalFetch("/tasks", {
       method: "POST",
       body: JSON.stringify(req),
@@ -25,13 +24,13 @@ export class TasksApi {
     return res;
   };
 
-  public static update = async ({
-    body,
-    id,
-  }: TaskUpdateReqDto): Promise<TaskResDto> => {
+  public static update = async (
+    id: string,
+    req: TaskUpdateReqDto,
+  ): Promise<TaskResDto> => {
     const res = await globalFetch(`/tasks/${id}`, {
       method: "PUT",
-      body: JSON.stringify(body),
+      body: JSON.stringify(req),
     });
     return res;
   };

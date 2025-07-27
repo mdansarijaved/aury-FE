@@ -1,21 +1,34 @@
 export type TaskResDto = {
   id: string;
-  name: string;
-  description?: string;
+  taskId: string;
+  scheduledOn: string;
+  duration: number;
+  status: string;
+  assignedTo: string | null;
   createdAt: string;
   updatedAt: string;
 };
 
-export type TasksResDto = {
-  tasks: TaskResDto[];
-};
+export type TasksResDto = TaskResDto[];
 
-export type TaskUpsertReqDto = {
-  name: string;
-  description?: string;
+export enum TaskStatus {
+  PENDING = "pending",
+  IN_PROGRESS = "in_progress",
+  COMPLETED = "completed",
+  CANCELLED = "cancelled",
+}
+
+type TaskUpsertReqDto = {
+  taskId: string;
+  scheduledOn: string;
+  duration: number;
+  status: TaskStatus;
+  assignedTo: string | null;
 };
 
 export type TaskUpdateReqDto = {
   id: string;
-  body: TaskUpsertReqDto;
+  body: Partial<TaskUpsertReqDto>;
 };
+
+export type TaskCreateReqDto = TaskUpsertReqDto;

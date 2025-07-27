@@ -1,4 +1,4 @@
-import { TaskResDto } from "@/api/tasks/tasks.dto";
+import { PredefinedTaskResDto } from "@/api/predefined-tasks/predefined-tasks.dto";
 import { DropdownMenuContent } from "@/components/base/dropdown-menu";
 import {
   DropdownMenuItem,
@@ -15,7 +15,7 @@ import {
 import { Button } from "@/components/base/button";
 import { EllipsisVertical } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
-import { TasksApi } from "@/api/tasks/tasks.api";
+import { PredefinedTasksApi } from "@/api/predefined-tasks/predefined-tasks.api";
 import { queryClient } from "@/components/misc/app-query-provider";
 import {
   AlertDialog,
@@ -28,22 +28,22 @@ import {
   AlertDialogTitle,
 } from "@/components/base/alert-dialog";
 import { useState } from "react";
-import { TaskUpdateModal } from "./task-update-modal";
+import { UpdateModal } from "./update-modal";
 import { toast } from "sonner";
 
-type TaskItemProps = {
-  task: TaskResDto;
+type ItemProps = {
+  task: PredefinedTaskResDto;
 };
 
-export const TaskItem = ({ task }: TaskItemProps) => {
+export const Item = ({ task }: ItemProps) => {
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
     useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const deleteTaskMutation = useMutation({
-    mutationFn: TasksApi.delete,
+    mutationFn: PredefinedTasksApi.delete,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      queryClient.invalidateQueries({ queryKey: ["predefined-tasks"] });
       toast.success("Task deleted successfully");
       setIsDeleteConfirmationOpen(false);
     },
@@ -108,7 +108,7 @@ export const TaskItem = ({ task }: TaskItemProps) => {
         </AlertDialogContent>
       </AlertDialog>
 
-      <TaskUpdateModal
+      <UpdateModal
         task={task}
         open={isEditModalOpen}
         onOpenChange={setIsEditModalOpen}
