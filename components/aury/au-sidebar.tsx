@@ -24,6 +24,7 @@ import {
   useSidebar,
 } from "@/components/base/sidebar";
 import { ROUTES } from "@/routes/routes";
+import Link from "next/link";
 
 const items = [
   {
@@ -95,10 +96,14 @@ export function AppSidebar() {
                     }`}
                     tooltip={item.title}
                   >
-                    <a href={item.url}>
-                      <item.icon />
+                    <Link href={item.url}>
+                      {isActive(item.url) ? (
+                        <item.icon stroke="black" fill="black" />
+                      ) : (
+                        <item.icon />
+                      )}
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
