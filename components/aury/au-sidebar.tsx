@@ -8,6 +8,7 @@ import {
   Plus,
   Settings,
 } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 import {
   Sidebar,
@@ -23,7 +24,6 @@ import {
   useSidebar,
 } from "@/components/base/sidebar";
 import { ROUTES } from "@/routes/routes";
-import { Button } from "../base/button";
 
 const items = [
   {
@@ -33,28 +33,36 @@ const items = [
   },
   {
     title: "Cats",
-    url: "#",
+    url: ROUTES.cats,
     icon: Cat,
   },
   {
     title: "Events",
-    url: "#",
+    url: ROUTES.events,
     icon: Calendar,
   },
   {
     title: "Tasks",
-    url: ROUTES.tasks,
+    url: ROUTES.predefinedTasks,
     icon: BrushCleaningIcon,
   },
   {
     title: "Settings",
-    url: "#",
+    url: ROUTES.settings,
     icon: Settings,
   },
 ];
 
 export function AppSidebar() {
-  const { open } = useSidebar();
+  const pathname = usePathname();
+
+  const isActive = (url: string) => {
+    if (url === ROUTES.root) {
+      return pathname === "/";
+    }
+    return pathname === url;
+  };
+
   return (
     <Sidebar className={`p-[18px] bg-white`} collapsible="icon">
       <SidebarHeader className="bg-white overflow-clip relative">
@@ -80,7 +88,11 @@ export function AppSidebar() {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
                     asChild
-                    className="hover:bg-[#F2EDE8] text-sm   rounded-2xl "
+                    className={`hover:bg-[#F2EDE8] text-sm rounded-2xl ${
+                      isActive(item.url)
+                        ? "bg-[#F2EDE8] text-black font-medium"
+                        : ""
+                    }`}
                     tooltip={item.title}
                   >
                     <a href={item.url}>

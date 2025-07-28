@@ -1,4 +1,8 @@
 export const ROUTES = {
   root: "/",
-  tasks: "/tasks",
+  predefinedTasks: "/predefined-tasks",
+  cats: "#cats",
+  events: "#events",
+  tasks: "#tasks",
+  settings: "#settings",
 };
