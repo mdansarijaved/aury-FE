@@ -11,7 +11,7 @@ export type CustomersResDto = {
 export type CustomerUpsertReqDto = {
   name: string;
   gender: string;
-  type?: string;
+  type: string;
   birthday?: string;
   breed?: string;
 };

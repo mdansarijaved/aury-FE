@@ -20,11 +20,7 @@ type UpdateModalProps = {
   onOpenChange: (open: boolean) => void;
 };
 
-export const UpdateModal = ({
-  task,
-  open,
-  onOpenChange,
-}: UpdateModalProps) => {
+export const UpdateModal = ({ task, open, onOpenChange }: UpdateModalProps) => {
   const updateTaskMutation = useMutation({
     mutationFn: PredefinedTasksApi.update,
     onSuccess: () => {

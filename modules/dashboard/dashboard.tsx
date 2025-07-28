@@ -6,7 +6,7 @@ import { IceCreamCone, Scissors } from "lucide-react";
 
 export const Dashboard = () => {
   return (
-    <div className="py-5">
+    <div className="my-5">
       <div className="p-4">
         <Text as="h1">Dashboard</Text>
         <Text as="s2" className="text-aury-500 mt-3">

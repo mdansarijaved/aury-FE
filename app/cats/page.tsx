@@ -1,3 +1,3 @@
 import { Cats } from "@/modules/cats/cats";
 
-export default Cats
+export default Cats;

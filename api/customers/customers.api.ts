@@ -4,30 +4,36 @@ import {
   CustomerResDto,
   CustomersResDto,
   CustomerUpdateReqDto,
+  CustomerUpsertReqDto,
 } from "./customers.dto";
 import { CustomerTypeEnum } from "./customers.enums";
 
 export class CustomersApi {
-  public static get = async (): Promise<CustomersResDto> => {
-    const res = await globalFetch("/customers");
+  public static get = {
+    key: "CustomersApi.get",
+    fn: async (): Promise<CustomersResDto> => {
+      const res = await globalFetch("/customers");
 
-    return res;
+      return res;
+    },
   };
 
-  public static getCustomerByType = async (
-    type: CustomerTypeEnum,
-  ): Promise<CustomersResDto> => {
-    const res = await globalFetch(`/customers/type/${type}`);
+  public static getCustomerByType = {
+    key: "CustomersApi.getCustomerByType",
+    fn: async (type: CustomerTypeEnum): Promise<CustomersResDto> => {
+      const res = await globalFetch(`/customers/type/${type}`);
 
-    return res;
+      return res;
+    },
   };
 
-  public static getCustomerById = async (
-    id: string,
-  ): Promise<CustomerResDto> => {
-    const res = await globalFetch(`/customers/${id}`);
+  public static getCustomerById = {
+    key: "CustomersApi.getCustomerById",
+    fn: async (id: string): Promise<CustomerResDto> => {
+      const res = await globalFetch(`/customers/${id}`);
 
-    return res;
+      return res;
+    },
   };
 
   public static createCustomer = async (
@@ -41,10 +47,10 @@ export class CustomersApi {
     return res;
   };
 
-  public static updateCustomer = async (
-    id: string,
-    body: CustomerUpdateReqDto,
-  ): Promise<CustomerResDto> => {
+  public static updateCustomer = async ({
+    body,
+    id,
+  }: CustomerUpdateReqDto): Promise<CustomerResDto> => {
     const res = await globalFetch(`/customers/${id}`, {
       method: "PUT",
       body: JSON.stringify(body),
