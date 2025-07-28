@@ -1,4 +1,13 @@
-import { BrushCleaningIcon, Calendar, Cat, Home, Settings } from "lucide-react";
+"use client";
+import {
+  BrushCleaningIcon,
+  Calendar,
+  Cat,
+  ChevronRight,
+  Home,
+  Plus,
+  Settings,
+} from "lucide-react";
 
 import {
   Sidebar,
@@ -9,8 +18,12 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarTrigger,
+  SidebarFooter,
+  useSidebar,
 } from "@/components/base/sidebar";
 import { ROUTES } from "@/routes/routes";
+import { Button } from "../base/button";
 
 const items = [
   {
@@ -41,9 +54,10 @@ const items = [
 ];
 
 export function AppSidebar() {
+  const { open } = useSidebar();
   return (
-    <Sidebar className=" bg-white" collapsible="icon">
-      <SidebarHeader className="bg-white overflow-clip">
+    <Sidebar className={`p-[18px] bg-white`} collapsible="icon">
+      <SidebarHeader className="bg-white overflow-clip relative">
         <SidebarMenu>
           <SidebarMenuItem className="flex items-center gap-2">
             <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
@@ -58,9 +72,9 @@ export function AppSidebar() {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="bg-white">
         <SidebarGroup>
-          <SidebarGroupContent>
+          <SidebarGroupContent className="">
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
@@ -80,11 +94,13 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      {/* <SidebarFooter className="bg-white">
-        <Button className="bg-[#F2E3D6] hover:bg-[#F2E3D6] rounded-2xl flex items-center gap-2 text-black ">
-          <Plus /> Add Cat
-        </Button>
-      </SidebarFooter> */}
+      <SidebarFooter className="bg-white overflow-clip">
+        <SidebarMenu>
+          <SidebarMenuItem className="flex items-center gap-2">
+            <SidebarTrigger className="size-8 flex-1 hover:bg-black hover:text-white bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square items-center justify-center rounded-lg " />
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   );
 }
