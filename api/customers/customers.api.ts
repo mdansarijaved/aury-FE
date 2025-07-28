@@ -5,50 +5,55 @@ import {
   CustomersResDto,
   CustomerUpdateReqDto,
 } from "./customers.dto";
+import { CustomerTypeEnum } from "./customers.enums";
 
 export class CustomersApi {
-  static get = async (): Promise<CustomersResDto> => {
-    const { data } = await globalFetch("/customers");
+  public static get = async (): Promise<CustomersResDto> => {
+    const res = await globalFetch("/customers");
 
-    return data;
+    return res;
   };
 
-  static getCustomerByType = async (type: string): Promise<CustomersResDto> => {
-    const { data } = await globalFetch(`/customers/type/${type}`);
+  public static getCustomerByType = async (
+    type: CustomerTypeEnum,
+  ): Promise<CustomersResDto> => {
+    const res = await globalFetch(`/customers/type/${type}`);
 
-    return data;
+    return res;
   };
 
-  static getCustomerById = async (id: string): Promise<CustomerResDto> => {
-    const { data } = await globalFetch(`/customers/${id}`);
+  public static getCustomerById = async (
+    id: string,
+  ): Promise<CustomerResDto> => {
+    const res = await globalFetch(`/customers/${id}`);
 
-    return data;
+    return res;
   };
 
-  static createCustomer = async (
+  public static createCustomer = async (
     body: CustomerCreateReqDto,
   ): Promise<CustomerResDto> => {
-    const { data } = await globalFetch("/customers", {
+    const res = await globalFetch("/customers", {
       method: "POST",
       body: JSON.stringify(body),
     });
 
-    return data;
+    return res;
   };
 
-  static updateCustomer = async (
+  public static updateCustomer = async (
     id: string,
     body: CustomerUpdateReqDto,
   ): Promise<CustomerResDto> => {
-    const { data } = await globalFetch(`/customers/${id}`, {
+    const res = await globalFetch(`/customers/${id}`, {
       method: "PUT",
       body: JSON.stringify(body),
     });
 
-    return data;
+    return res;
   };
 
-  static deleteCustomer = async (id: string): Promise<void> => {
+  public static deleteCustomer = async (id: string): Promise<void> => {
     await globalFetch(`/customers/${id}`, {
       method: "DELETE",
     });

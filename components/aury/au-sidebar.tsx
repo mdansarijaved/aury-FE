@@ -20,7 +20,7 @@ const items = [
   },
   {
     title: "Cats",
-    url: "#",
+    url: ROUTES.cats.root,
     icon: Cat,
   },
   {
