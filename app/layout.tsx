@@ -31,17 +31,14 @@ export default async function RootLayout({
   const defaultOpen = cookieStore.get("sidebar_state")?.value === "true";
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AppQueryProvider>
-          <SidebarProvider defaultOpen={defaultOpen}>
+          <SidebarProvider defaultOpen={defaultOpen} className="relative">
             <AppSidebar />
-            <main className="flex-1">
-              <SidebarTrigger />
-              {children}
-            </main>
+            <main className="flex-1">{children}</main>
           </SidebarProvider>
         </AppQueryProvider>
         <Toaster />

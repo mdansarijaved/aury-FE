@@ -1,4 +1,14 @@
-import { BrushCleaningIcon, Calendar, Cat, Home, Settings } from "lucide-react";
+"use client";
+import {
+  BrushCleaningIcon,
+  Calendar,
+  Cat,
+  ChevronRight,
+  Home,
+  Plus,
+  Settings,
+} from "lucide-react";
+import { usePathname } from "next/navigation";
 
 import {
   Sidebar,
@@ -9,8 +19,12 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarTrigger,
+  SidebarFooter,
+  useSidebar,
 } from "@/components/base/sidebar";
 import { ROUTES } from "@/routes/routes";
+import Link from "next/link";
 
 const items = [
   {
@@ -25,25 +39,34 @@ const items = [
   },
   {
     title: "Events",
-    url: "#",
+    url: ROUTES.events,
     icon: Calendar,
   },
   {
     title: "Tasks",
-    url: ROUTES.tasks,
+    url: ROUTES.predefinedTasks,
     icon: BrushCleaningIcon,
   },
   {
     title: "Settings",
-    url: "#",
+    url: ROUTES.settings,
     icon: Settings,
   },
 ];
 
 export function AppSidebar() {
+  const pathname = usePathname();
+
+  const isActive = (url: string) => {
+    if (url === ROUTES.root) {
+      return pathname === "/";
+    }
+    return pathname === url;
+  };
+
   return (
-    <Sidebar className=" bg-white" collapsible="icon">
-      <SidebarHeader className="bg-white overflow-clip">
+    <Sidebar className={`p-[18px] bg-white`} collapsible="icon">
+      <SidebarHeader className="bg-white overflow-clip relative">
         <SidebarMenu>
           <SidebarMenuItem className="flex items-center gap-2">
             <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
@@ -58,21 +81,29 @@ export function AppSidebar() {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="bg-white">
         <SidebarGroup>
-          <SidebarGroupContent>
+          <SidebarGroupContent className="">
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
                     asChild
-                    className="hover:bg-[#F2EDE8] text-sm   rounded-2xl "
+                    className={`hover:bg-[#F2EDE8] text-sm rounded-2xl ${
+                      isActive(item.url)
+                        ? "bg-[#F2EDE8] text-black font-medium"
+                        : ""
+                    }`}
                     tooltip={item.title}
                   >
-                    <a href={item.url}>
-                      <item.icon />
+                    <Link href={item.url}>
+                      {isActive(item.url) ? (
+                        <item.icon stroke="black" fill="black" />
+                      ) : (
+                        <item.icon />
+                      )}
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -80,11 +111,13 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      {/* <SidebarFooter className="bg-white">
-        <Button className="bg-[#F2E3D6] hover:bg-[#F2E3D6] rounded-2xl flex items-center gap-2 text-black ">
-          <Plus /> Add Cat
-        </Button>
-      </SidebarFooter> */}
+      <SidebarFooter className="bg-white overflow-clip">
+        <SidebarMenu>
+          <SidebarMenuItem className="flex items-center gap-2">
+            <SidebarTrigger className="size-8 flex-1 hover:bg-black hover:text-white bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square items-center justify-center rounded-lg " />
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   );
 }
