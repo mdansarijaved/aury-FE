@@ -11,6 +11,7 @@ import { CustomerTypeEnum } from "@/api/customers/customers.enums";
 import { queryClient } from "@/components/misc/app-query-provider";
 import { Skeleton } from "@/components/base/skeleton";
 import { AUPageError } from "@/components/aury/au-page-error";
+import { Delete, DeleteIcon, Trash2 } from "lucide-react";
 
 type CatEditDialogProps = {
   open: boolean;
@@ -38,10 +39,17 @@ export const CatEditDialog = ({
       onOpenChange(false);
       toast.success("Cat updated successfully");
       queryClient.invalidateQueries({
-        queryKey: [
-          CustomersApi.getCustomerByType.key,
-          CustomerTypeEnum.CAT,
-        ],
+        queryKey: [CustomersApi.getCustomerByType.key, CustomerTypeEnum.CAT],
+      });
+    },
+  });
+  const deleteCatMutation = useMutation({
+    mutationFn: CustomersApi.deleteCustomer,
+    onSuccess: () => {
+      onOpenChange(false);
+      toast.success("Cat deleted successfully");
+      queryClient.invalidateQueries({
+        queryKey: [CustomersApi.getCustomerByType.key, CustomerTypeEnum.CAT],
       });
     },
   });
@@ -49,7 +57,16 @@ export const CatEditDialog = ({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent showCloseButton>
-        <DialogTitle>Edit Cat</DialogTitle>
+        <div className="flex items-center justify-between">
+          <DialogTitle>Edit Cat</DialogTitle>
+          <div className="flex items-center gap-2 mr-8 text-red-500 cursor-pointer">
+            <Trash2
+              className="w-4 h-4"
+              onClick={() => deleteCatMutation.mutate(id)}
+            />
+            <span className="sr-only">Delete Cat</span>
+          </div>
+        </div>
 
         {isLoading && <Skeleton />}
 
