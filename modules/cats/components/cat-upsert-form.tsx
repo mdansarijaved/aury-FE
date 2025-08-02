@@ -132,20 +132,10 @@ export const CatUpsertForm = ({
           </AuForm.InputWrapper>
         )}
       />
-      <div className="text-right space-x-3">
-        <Button
-          type="button"
-          variant="destructive"
-          disabled={isSubmitting}
-          onClick={handleDelete}
-        >
-          Delete
-        </Button>
 
-        <Button type="submit" disabled={isSubmitting} className="ml-auto">
-          Submit
-        </Button>
-      </div>
+      <Button type="submit" disabled={isSubmitting} className="ml-auto">
+        Submit
+      </Button>
     </form>
   );
 };
