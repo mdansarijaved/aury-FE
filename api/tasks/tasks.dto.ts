@@ -1,17 +1,21 @@
+import { PredefinedTaskResDto } from "../predefined-tasks/predefined-tasks.dto";
 import { TaskStatusEnum } from "./tasks.enums";
 
 export type TaskResDto = {
   id: string;
-  taskId: string;
+  predefinedTaskId: string;
   scheduledOn: string;
   duration: number;
   status: string;
-  assignedTo: string | null;
+  assignedTo?: string;
   createdAt: string;
   updatedAt: string;
+  predefinedTask: PredefinedTaskResDto;
 };
 
-export type TasksResDto = TaskResDto[];
+export type TasksResDto = {
+  tasks: TaskResDto[];
+};
 
 type TaskUpsertReqDto = {
   predefinedTaskId: string;
