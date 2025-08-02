@@ -17,26 +17,24 @@ export const Dashboard = () => {
   });
 
   return (
-    <div className="my-5">
-      <div className="p-4">
-        <Text as="h1">Dashboard</Text>
-        <Text as="s2" className="text-aury-500 mt-3">
-          Overview of your cats and their activities
-        </Text>
-      </div>
+    <div className="px-4">
+      <Text as="h1">Dashboard</Text>
+      <Text as="s2" className="text-aury-500 mt-3">
+        Overview of your cats and their activities
+      </Text>
 
-      <div className="p-4 mt-1">
+      <div className="mt-5">
         <Text as="h2">Cats</Text>
         <div className="mt-8">
           {isError && <AUPageError />}
 
-          {isLoading && <Skeleton className="h-60"/>}
+          {isLoading && <Skeleton className="h-60" />}
 
           {!!data && <CatsSummary cats={data} />}
         </div>
       </div>
 
-      <div className="p-4">
+      <div>
         <Text as="h2">Daily Care</Text>
 
         <div className="my-4">

@@ -7,14 +7,20 @@ import {
 } from "./predefined-tasks.dto";
 
 export class PredefinedTasksApi {
-  public static get = async (): Promise<PredefinedTasksResDto> => {
-    const res = await globalFetch("/predefined-tasks");
-    return res;
+  public static get = {
+    key: "PredefinedTasksApi.get",
+    fn: async (): Promise<PredefinedTasksResDto> => {
+      const res = await globalFetch("/predefined-tasks");
+      return res;
+    },
   };
 
-  public static getById = async (id: string): Promise<PredefinedTaskResDto> => {
-    const res = await globalFetch(`/predefined-tasks/${id}`);
-    return res;
+  public static getById = {
+    key: "PredefinedTasksApi.getById",
+    fn: async (id: string): Promise<PredefinedTaskResDto> => {
+      const res = await globalFetch(`/predefined-tasks/${id}`);
+      return res;
+    },
   };
 
   public static create = async (

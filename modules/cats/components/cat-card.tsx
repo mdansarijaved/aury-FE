@@ -44,7 +44,10 @@ export const CatCard = ({ cat }: CatCardProps) => {
 
   return (
     <>
-      <Card className="w-50 border-none shadow-none cursor-pointer" onClick={() => setShowEditModal(true)}>
+      <Card
+        className="w-50 border-none shadow-none cursor-pointer"
+        onClick={() => setShowEditModal(true)}
+      >
         <CardContent
           className={`flex items-center justify-center ${backgroundColor} rounded-lg`}
         >
@@ -61,7 +64,7 @@ export const CatCard = ({ cat }: CatCardProps) => {
           </Text>
         </CardContent>
       </Card>
-      
+
       <CatEditDialog
         id={cat.id}
         onOpenChange={setShowEditModal}

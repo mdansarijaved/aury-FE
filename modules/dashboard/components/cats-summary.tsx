@@ -1,5 +1,8 @@
 import { CustomerGenderEnum } from "@/api/customers/customers.enums";
-import { CustomersSummaryResDto, CustomerSummaryResDto } from "@/api/dashboard/dashboard.dto";
+import {
+  CustomersSummaryResDto,
+  CustomerSummaryResDto,
+} from "@/api/dashboard/dashboard.dto";
 import { AuTable } from "@/components/aury/au-table";
 import { Text } from "@/components/base/text";
 import {
@@ -17,16 +20,16 @@ type CatsSummaryProps = {
 const formatAge = (birthday: string) => {
   const now = dayjs();
   const birthDate = dayjs(birthday);
-  const years = now.diff(birthDate, 'year');
-  const months = now.diff(birthDate, 'month') % 12;
-  const days = now.diff(birthDate, 'day') % 30;
+  const years = now.diff(birthDate, "year");
+  const months = now.diff(birthDate, "month") % 12;
+  const days = now.diff(birthDate, "day") % 30;
 
   if (years > 0) {
-    return `${years} Year${years > 1 ? 's' : ''}`;
+    return `${years} Year${years > 1 ? "s" : ""}`;
   } else if (months > 0) {
-    return `${months} Month${months > 1 ? 's' : ''}`;
+    return `${months} Month${months > 1 ? "s" : ""}`;
   } else {
-    return `${days} Day${days > 1 ? 's' : ''}`;
+    return `${days} Day${days > 1 ? "s" : ""}`;
   }
 };
 

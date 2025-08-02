@@ -1,6 +1,10 @@
 export const ROUTES = {
   root: "/",
-  tasks: "/tasks",
+  tasks: {
+    view: {
+      list: "/tasks/view/list",
+    },
+  },
   cats: {
     root: "/cats",
   },

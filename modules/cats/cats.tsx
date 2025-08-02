@@ -20,7 +20,7 @@ export const Cats = () => {
 
   return (
     <>
-      <div className="px-4 my-9">
+      <div className="px-4">
         <div className="flex">
           <Text as="h1">Cats</Text>
           <Button className="ml-auto" onClick={() => setOpen(true)}>

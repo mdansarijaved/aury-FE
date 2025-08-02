@@ -1,3 +1,5 @@
+import { TaskStatusEnum } from "./tasks.enums";
+
 export type TaskResDto = {
   id: string;
   taskId: string;
@@ -11,19 +13,12 @@ export type TaskResDto = {
 
 export type TasksResDto = TaskResDto[];
 
-export enum TaskStatus {
-  PENDING = "pending",
-  IN_PROGRESS = "in_progress",
-  COMPLETED = "completed",
-  CANCELLED = "cancelled",
-}
-
 type TaskUpsertReqDto = {
-  taskId: string;
+  predefinedTaskId: string;
   scheduledOn: string;
   duration: number;
-  status: TaskStatus;
-  assignedTo: string | null;
+  status: TaskStatusEnum;
+  assignedTo?: string;
 };
 
 export type TaskUpdateReqDto = {

@@ -2,7 +2,7 @@ import {
   CustomerGenderEnum,
   CustomerTypeEnum,
 } from "@/api/customers/customers.enums";
-import { AuForm } from "@/components/aury/au-form";
+import { AuForm } from "@/components/aury/au-form/au-form";
 import { Button } from "@/components/base/button";
 import { Calendar } from "@/components/base/calendar";
 import { Input } from "@/components/base/input";

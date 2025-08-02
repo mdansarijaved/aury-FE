@@ -38,7 +38,7 @@ export default async function RootLayout({
         <AppQueryProvider>
           <SidebarProvider defaultOpen={defaultOpen} className="relative">
             <AppSidebar />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 my-5">{children}</main>
           </SidebarProvider>
         </AppQueryProvider>
         <Toaster />

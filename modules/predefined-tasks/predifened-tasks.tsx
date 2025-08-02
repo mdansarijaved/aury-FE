@@ -8,18 +8,19 @@ import { Item } from "./components/item";
 import { AUBack } from "@/components/aury/au-back";
 import { useRouter } from "next/navigation";
 import { Text } from "@/components/base/text";
+import { AUPageError } from "@/components/aury/au-page-error";
 
 export const PredefinedTasks = () => {
   const router = useRouter();
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["predefined-tasks"],
-    queryFn: PredefinedTasksApi.get,
+    queryKey: [PredefinedTasksApi.get.key],
+    queryFn: PredefinedTasksApi.get.fn,
   });
 
   return (
     <div className="mx-6">
-      <AUBack onClick={router.back} className="mb-4" />
+      <AUBack onClick={router.back} className="my-4" />
 
       <div>
         <div className="flex items-center justify-between">
@@ -41,6 +42,8 @@ export const PredefinedTasks = () => {
               <Skeleton className="h-20" />
             </>
           )}
+
+          {isError && <AUPageError />}
 
           {data?.predefinedTasks.map((task) => (
             <Item key={task.id} task={task} />

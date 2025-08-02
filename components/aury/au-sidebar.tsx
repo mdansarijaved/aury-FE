@@ -44,7 +44,7 @@ const items = [
   },
   {
     title: "Tasks",
-    url: ROUTES.predefinedTasks,
+    url: ROUTES.tasks.view.list,
     icon: BrushCleaningIcon,
   },
   {

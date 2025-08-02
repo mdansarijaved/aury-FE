@@ -6,14 +6,20 @@ import {
 } from "./tasks.dto";
 import { globalFetch } from "../global.fetch";
 export class TasksApi {
-  public static get = async (): Promise<TasksResDto> => {
-    const res = await globalFetch("/tasks");
-    return res;
+  public static get = {
+    key: "TasksApi.get",
+    fn: async (): Promise<TasksResDto> => {
+      const res = await globalFetch("/tasks");
+      return res;
+    },
   };
 
-  public static getById = async (id: string): Promise<TaskResDto> => {
-    const res = await globalFetch(`/tasks/${id}`);
-    return res;
+  public static getById = {
+    key: "TasksApi.getById",
+    fn: async (id: string): Promise<TaskResDto> => {
+      const res = await globalFetch(`/tasks/${id}`);
+      return res;
+    },
   };
 
   public static create = async (req: TaskCreateReqDto): Promise<TaskResDto> => {

@@ -27,10 +27,7 @@ export const CatAddDialog = ({ open, onOpenChange }: CatAddDialogProps) => {
       onOpenChange(false);
       toast.success("Cat created successfully");
       queryClient.invalidateQueries({
-        queryKey: [
-          CustomersApi.getCustomerByType.key,
-          CustomerTypeEnum.CAT,
-        ],
+        queryKey: [CustomersApi.getCustomerByType.key, CustomerTypeEnum.CAT],
       });
     },
   });

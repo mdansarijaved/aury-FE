@@ -38,10 +38,7 @@ export const CatEditDialog = ({
       onOpenChange(false);
       toast.success("Cat updated successfully");
       queryClient.invalidateQueries({
-        queryKey: [
-          CustomersApi.getCustomerByType.key,
-          CustomerTypeEnum.CAT,
-        ],
+        queryKey: [CustomersApi.getCustomerByType.key, CustomerTypeEnum.CAT],
       });
     },
   });
