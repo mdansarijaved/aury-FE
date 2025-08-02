@@ -45,6 +45,10 @@ export const CatUpsertForm = ({
     defaultValues,
   });
 
+  const handleDelete = () => {
+    console.log("delete");
+  };
+
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
       <AuForm.InputWrapper
@@ -128,10 +132,20 @@ export const CatUpsertForm = ({
           </AuForm.InputWrapper>
         )}
       />
+      <div className="text-right space-x-3">
+        <Button
+          type="button"
+          variant="destructive"
+          disabled={isSubmitting}
+          onClick={handleDelete}
+        >
+          Delete
+        </Button>
 
-      <Button type="submit" disabled={isSubmitting} className="ml-auto">
-        Submit
-      </Button>
+        <Button type="submit" disabled={isSubmitting} className="ml-auto">
+          Submit
+        </Button>
+      </div>
     </form>
   );
 };
