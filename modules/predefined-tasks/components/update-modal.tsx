@@ -31,7 +31,8 @@ export const UpdateModal = ({ task, open, onOpenChange }: UpdateModalProps) => {
   });
 
   const handleSubmit = (data: TFormSchema) => {
-    updateTaskMutation.mutate({ id: task.id, body: data });
+    // TODO: Implement update task
+    // updateTaskMutation.mutate({ id: task.id, body: data });
   };
 
   return (

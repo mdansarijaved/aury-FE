@@ -1,14 +1,14 @@
 export const ROUTES = {
   root: "/",
   tasks: {
-    view: {
-      list: "/tasks/view/list",
+    root: "/tasks",
+    predefinedTasks: {
+      root: "/tasks/predefined-tasks",
     },
   },
   cats: {
     root: "/cats",
   },
-  predefinedTasks: "/predefined-tasks",
   events: "/events",
   settings: "/settings",
 };

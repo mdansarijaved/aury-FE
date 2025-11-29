@@ -9,7 +9,7 @@ import {
 } from "@/components/base/dialog";
 import { useState } from "react";
 import { TasksUpsertForm } from "./tasks-upsert-form/tasks-upsert-form";
-import { TaskStatusEnum } from "@/api/tasks/tasks.enums";
+import { TaskStatus } from "@/api/tasks/tasks.enums";
 import { useMutation } from "@tanstack/react-query";
 import { TasksApi } from "@/api/tasks/tasks.api";
 import { queryClient } from "@/components/misc/app-query-provider";
@@ -47,7 +47,7 @@ export const TasksAdd = () => {
             predefinedTaskId: "",
             scheduledOn: dayjs().toISOString(),
             duration: 0,
-            status: TaskStatusEnum.PENDING,
+            status: TaskStatus.PENDING,
           }}
           onSubmit={createTaskMutation.mutate}
           isSubmitting={createTaskMutation.isPending}

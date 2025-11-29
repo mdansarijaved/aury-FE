@@ -22,6 +22,15 @@ export class TasksApi {
     },
   };
 
+  public static getByDate = {
+    key: "TasksApi.getByDate",
+    fn: async (date: string): Promise<TasksResDto> => {
+      const res = await globalFetch(`/tasks/date/${date}`);
+
+      return res;
+    },
+  };
+
   public static create = async (req: TaskCreateReqDto): Promise<TaskResDto> => {
     const res = await globalFetch("/tasks", {
       method: "POST",

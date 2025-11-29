@@ -1,13 +1,5 @@
 "use client";
-import {
-  BrushCleaningIcon,
-  Calendar,
-  Cat,
-  ChevronRight,
-  Home,
-  Plus,
-  Settings,
-} from "lucide-react";
+import { BrushCleaningIcon, Calendar, Cat, Home, Settings } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import {
@@ -25,6 +17,7 @@ import {
 } from "@/components/base/sidebar";
 import { ROUTES } from "@/routes/routes";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 const items = [
   {
@@ -44,7 +37,7 @@ const items = [
   },
   {
     title: "Tasks",
-    url: ROUTES.tasks.view.list,
+    url: ROUTES.tasks.root,
     icon: BrushCleaningIcon,
   },
   {
@@ -61,7 +54,8 @@ export function AppSidebar() {
     if (url === ROUTES.root) {
       return pathname === "/";
     }
-    return pathname === url;
+
+    return pathname.includes(url);
   };
 
   return (
@@ -89,19 +83,15 @@ export function AppSidebar() {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
                     asChild
-                    className={`hover:bg-[#F2EDE8] text-sm rounded-2xl ${
-                      isActive(item.url)
-                        ? "bg-[#F2EDE8] text-black font-medium"
-                        : ""
-                    }`}
+                    className={cn(
+                      "hover:bg-[#F2EDE8] text-sm rounded-2xl",
+                      isActive(item.url) &&
+                        "bg-[#F2EDE8] text-black font-medium",
+                    )}
                     tooltip={item.title}
                   >
                     <Link href={item.url}>
-                      {isActive(item.url) ? (
-                        <item.icon stroke="black" fill="black" />
-                      ) : (
-                        <item.icon />
-                      )}
+                      <item.icon />
                       <span>{item.title}</span>
                     </Link>
                   </SidebarMenuButton>

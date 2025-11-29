@@ -19,36 +19,32 @@ export const PredefinedTasks = () => {
   });
 
   return (
-    <div className="mx-6">
-      <AUBack onClick={router.back} className="my-4" />
-
-      <div>
-        <div className="flex items-center justify-between">
-          <div>
-            <Text as="h1">Tasks</Text>
-            <Text className="text-aury-500">List of tasks for Aury</Text>
-          </div>
-
-          <div>
-            <AddModal />
-          </div>
+    <div className="px-4">
+      <div className="flex items-center justify-between">
+        <div>
+          <Text as="h1">Tasks</Text>
+          <Text className="text-aury-500">List of tasks for Aury</Text>
         </div>
 
-        <div className="space-y-2 mt-4">
-          {isLoading && (
-            <>
-              <Skeleton className="h-20" />
-              <Skeleton className="h-20" />
-              <Skeleton className="h-20" />
-            </>
-          )}
-
-          {isError && <AUPageError />}
-
-          {data?.predefinedTasks.map((task) => (
-            <Item key={task.id} task={task} />
-          ))}
+        <div>
+          <AddModal />
         </div>
+      </div>
+
+      <div className="space-y-2 mt-4">
+        {isLoading && (
+          <>
+            <Skeleton className="h-20" />
+            <Skeleton className="h-20" />
+            <Skeleton className="h-20" />
+          </>
+        )}
+
+        {isError && <AUPageError />}
+
+        {data?.predefinedTasks.map((task) => (
+          <Item key={task.id} task={task} />
+        ))}
       </div>
     </div>
   );

@@ -17,7 +17,7 @@ export const TasksTable = ({ data }: TasksTableProps) => {
   const columnHelper = createColumnHelper<TaskResDto>();
   const columns = useMemo(
     () => [
-      columnHelper.accessor("predefinedTask.name", {
+      columnHelper.accessor("predefinedTaskSchedule.predefinedTask.name", {
         header: "Task Name",
       }),
       columnHelper.accessor("scheduledOn", {
@@ -41,9 +41,6 @@ export const TasksTable = ({ data }: TasksTableProps) => {
 
           return date.fromNow();
         },
-      }),
-      columnHelper.accessor("duration", {
-        header: "Duration",
       }),
     ],
     [columnHelper],

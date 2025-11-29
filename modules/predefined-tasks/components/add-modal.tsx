@@ -28,7 +28,8 @@ export const AddModal = () => {
   });
 
   const handleSubmit = (data: TFormSchema) => {
-    createTaskMutation.mutate(data);
+    // TODO: Implement create task
+    // createTaskMutation.mutate(data);
   };
 
   return (

@@ -1,15 +1,13 @@
-import { PredefinedTaskResDto } from "../predefined-tasks/predefined-tasks.dto";
-import { TaskStatusEnum } from "./tasks.enums";
+import { PredefinedTaskResDto, PredefinedTaskSchedule } from "../predefined-tasks/predefined-tasks.dto";
+import { TaskStatus } from "./tasks.enums";
 
 export type TaskResDto = {
   id: string;
+  predefinedTaskScheduleId: string;
   predefinedTaskId: string;
   scheduledOn: string;
-  duration: number;
-  status: string;
-  assignedTo?: string;
-  createdAt: string;
-  updatedAt: string;
+  status: TaskStatus;
+  predefinedTaskSchedule: PredefinedTaskSchedule;
   predefinedTask: PredefinedTaskResDto;
 };
 
@@ -21,8 +19,7 @@ type TaskUpsertReqDto = {
   predefinedTaskId: string;
   scheduledOn: string;
   duration: number;
-  status: TaskStatusEnum;
-  assignedTo?: string;
+  status: TaskStatus;
 };
 
 export type TaskUpdateReqDto = {

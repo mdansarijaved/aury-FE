@@ -2,18 +2,31 @@
 import { Text } from "@/components/base/text";
 import { CatsSummary } from "./components/cats-summary";
 import { TaskTodayCard } from "./components/task-today-card";
-import { IceCreamCone, Scissors } from "lucide-react";
+import { IceCream } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { DashboardApi } from "@/api/dashboard/dashboard.api";
 import { CustomerTypeEnum } from "@/api/customers/customers.enums";
 import { AUPageError } from "@/components/aury/au-page-error";
 import { Skeleton } from "@/components/base/skeleton";
+import dayjs from "dayjs";
+import { TasksApi } from "@/api/tasks/tasks.api";
 
 export const Dashboard = () => {
+  const today = dayjs().format("YYYY-MM-DD");
+
   const { data, isLoading, isError } = useQuery({
     queryKey: [DashboardApi.getCustomerSummary.key],
     queryFn: () =>
       DashboardApi.getCustomerSummary.fn({ type: CustomerTypeEnum.CAT }),
+  });
+
+  const {
+    data: todayTasks,
+    isLoading: isTodayTasksLoading,
+    isError: isTodayTasksError,
+  } = useQuery({
+    queryKey: [TasksApi.getByDate.key, today],
+    queryFn: () => TasksApi.getByDate.fn(today),
   });
 
   return (
@@ -34,7 +47,7 @@ export const Dashboard = () => {
         </div>
       </div>
 
-      <div>
+      <div className="mt-4">
         <Text as="h2">Daily Care</Text>
 
         <div className="my-4">
@@ -47,26 +60,33 @@ export const Dashboard = () => {
         </div>
       </div>
 
-      <div>
-        <TaskTodayCard
-          title="Whiskers"
-          description="Feeding"
-          time="10:00 AM"
-          icon={<IceCreamCone />}
-        />
-        <TaskTodayCard
-          title="Kittens"
-          description="Grooming"
-          time="10:00 AM"
-          icon={<Scissors />}
-        />
-        <TaskTodayCard
-          title="Vet"
-          description="Rashmi Aunty ke therapy"
-          time="10:00 AM"
-          icon={<Scissors />}
-        />
-      </div>
+      {isTodayTasksLoading && (
+        <div className="space-y-2">
+          <Skeleton className="h-20" />
+          <Skeleton className="h-20" />
+          <Skeleton className="h-20" />
+        </div>
+      )}
+
+      {isTodayTasksError && <AUPageError />}
+
+      {!!todayTasks && (
+        <div>
+          {todayTasks.tasks.map((task) => {
+            const predefinedTask = task.predefinedTask
+
+            return (
+              <TaskTodayCard
+                key={task.id}
+                title={predefinedTask.name}
+                description={predefinedTask.description ?? ""}
+                time={dayjs(task.scheduledOn).format("h:mm a")}
+                icon={<IceCream />}
+              />
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };
